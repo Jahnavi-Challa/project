@@ -17,7 +17,7 @@ def download_data():
     url = "https://raw.githubusercontent.com/your-repo/autism_data.csv"  # Replace with actual dataset URL
     if not os.path.exists("autism_data(1).csv"):
         r = requests.get(url)
-        with open("autism_data.csv", "wb") as f:
+        with open("autism_data (1).csv", "wb") as f:
             f.write(r.content)
 
 def load_data():
