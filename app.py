@@ -25,7 +25,7 @@ def load_data():
     download_data()
     data = pd.read_csv("autism_data.csv")
     data.dropna(inplace=True)
-    data_classes = data['Class/ASD'].apply(lambda x: 1 if x == 'YES' else 0)
+    data_classes = data['class'].apply(lambda x: 1 if x == 'YES' else 0)
     features = data[['age', 'result']]
     scaler = MinMaxScaler()
     features[['age', 'result']] = scaler.fit_transform(features)
