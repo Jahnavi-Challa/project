@@ -23,7 +23,7 @@ def download_data():
 def load_data():
     """Load and preprocess data."""
     download_data()
-    data = pd.read_csv("autism_data.csv")
+    data = pd.read_csv("autism_data (1).csv")
     data.dropna(inplace=True)
 
     # Debugging: Print the column names
