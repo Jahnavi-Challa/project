@@ -23,21 +23,15 @@ def download_data():
 def load_data():
     """Load and preprocess data."""
     download_data()
-    data = pd.read_csv("autism_data (1).csv")
+    data = pd.read_csv("autism_data.csv")
+    print("Available columns:", data.columns)  # Debugging step
     data.dropna(inplace=True)
-
-    # Debugging: Print the column names
-    print("Columns in dataset:", data.columns)
-
-    # Check possible mismatches
-    if 'Class/ASD' not in data.columns:
-        raise KeyError("Expected column 'Class/ASD' not found in dataset. Available columns: " + str(data.columns))
-
     data_classes = data['Class/ASD'].apply(lambda x: 1 if x == 'YES' else 0)
     features = data[['age', 'result']]
     scaler = MinMaxScaler()
     features[['age', 'result']] = scaler.fit_transform(features)
     return features, data_classes
+
 
 
 def train_models(X_train, y_train):
