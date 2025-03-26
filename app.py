@@ -25,7 +25,21 @@ def load_data():
     download_data()
     data = pd.read_csv("autism_data.csv")
     data.dropna(inplace=True)
-    data_classes = data['Class/ASD'].apply(lambda x: 1 if x == 'YES' else 0)
+
+    # Debugging: Print column names
+    st.write("Columns in dataset:", list(data.columns))
+
+    # Ensure column name consistency
+    data.columns = data.columns.str.strip()  # Remove spaces
+    data.columns = data.columns.str.replace(r'[^A-Za-z0-9_/]', '', regex=True)  # Remove special characters
+
+    # Check if 'Class/ASD' exists
+    if 'Class/ASD' in data.columns:
+        data_classes = data['Class/ASD'].apply(lambda x: 1 if x == 'YES' else 0)
+    else:
+        st.error("Error: 'Class/ASD' column not found! Check the printed column names.")
+        return None, None
+
     features = data[['age', 'result']]
     scaler = MinMaxScaler()
     features[['age', 'result']] = scaler.fit_transform(features)
